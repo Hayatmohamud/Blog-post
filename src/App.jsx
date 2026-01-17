@@ -4,6 +4,8 @@ import Article from "./pages/Article";
 import Articles from "./pages/Articles";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Header from "./components/Header";
+import Footer from "./components/Footer"
 
 
 
@@ -13,11 +15,11 @@ function App() {
   return (
     <div>
       {/* Header */}
-
+      <Header />
       <main>
         {/* public routes */}
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/article" element={<Article />} />
           <Route path="article/:id" element={<Articles />} />
 
@@ -27,6 +29,7 @@ function App() {
         </Routes>
       </main>
       {/* footer */}
+      <Footer />
     </div>
   );
 }
