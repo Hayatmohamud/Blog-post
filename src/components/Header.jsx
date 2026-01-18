@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router"; 
+import { FaUser } from "react-icons/fa";
 
 const Header = () => {
-  
-  const Header = () => {
-     const [isMenuOpen, setIsMenuOpen] = useState(false);
-     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-     const { isLoggedIn, profile, logout } = useAuth();
-  }
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const avatar_url = null;
 
   return (
     <header className="bg-white shadow">
@@ -22,7 +23,7 @@ const Header = () => {
               </Link>
             </div>
 
-            {/* Nav-bar: Added 'ml-10' for space after logo and 'space-x-8' for space between links */}
+            {/* Nav-bar */}
             <nav className="hidden sm:ml-10 sm:flex sm:space-x-8 h-full">
               <Link
                 to="/"
@@ -53,31 +54,43 @@ const Header = () => {
 
           {/* RIGHT SECTION */}
           <div className="flex items-center space-x-6">
-            {" "}
-            {/* 'space-x-6' waxay kala fogaynaysaa magaca iyo badannada */}
-            {/* profile */}
-            <div className="hidden md:block">
-              <span className="text-sm font-medium text-gray-700">
-                Hello! Hayat
-              </span>
-            </div>
-            {/* buttons container */}
-            <div className="flex items-center space-x-3">
-              {" "}
-              {/* 'space-x-3' waxay kala fogaynaysaa labada button dhexdooda */}
-              <Link
-                to="/signin"
-                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-              >
-                Sign In
-              </Link>
-              <Link
-                to="/signup"
-                className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md text-orange-600 bg-white border border-orange-600 hover:bg-orange-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-              >
-                Sign Up
-              </Link>
-            </div>
+            {isLoggedIn ? (
+              <>
+                <div className="text-sm text-gray-700">
+                  <span className="text-sm font-medium text-gray-700">
+                    Hello! Hayat
+                  </span>
+                </div>
+                {/* Profile Button */}
+                <div className="relative">
+                  <button className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all">
+                    {avatar_url ? (
+                      <img className="w-8 h-8 rounded-full" src={avatar_url} />
+                    ) : (
+                      <FaUser className="text-orange-500"/>
+                    )}
+                  </button>
+                  {/* dropdown menu */}
+                  
+                </div>
+              </>
+            ) : (
+              // buttons
+              <div className="flex items-center space-x-3">
+                <Link
+                  to="/signin"
+                  className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/signup"
+                  className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md text-orange-600 bg-white border border-orange-600 hover:bg-orange-50 transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
