@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { FaUser, FaBars, FaTimes } from "react-icons/fa";
+import { useAuth} from "../context/AuthContext";
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {isLoggedIn , profile ,  logout}  = useAuth()
 
   const avatar_url = null;
 
@@ -20,7 +22,7 @@ const Header = () => {
                 Blogify
               </Link>
             </div>
-
+            {/* nav_bar */}
             <nav className="hidden sm:ml-10 sm:flex sm:space-x-8 h-full">
               <Link
                 to="/"
@@ -34,18 +36,22 @@ const Header = () => {
               >
                 Article
               </Link>
-              <Link
-                to="/write"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              >
-                Write
-              </Link>
-              <Link
-                to="/articles"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              >
-                My Articles
-              </Link>
+              {isLoggedIn && (
+                <>
+                  <Link
+                    to="/write"
+                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  >
+                    Write
+                  </Link>
+                  <Link
+                    to="/articles"
+                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  >
+                    My Articles
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
 
@@ -54,7 +60,7 @@ const Header = () => {
             {isLoggedIn ? (
               <div className="flex items-center space-x-2">
                 <div className="text-xs sm:text-sm font-medium text-gray-700">
-                  Hi! Hayat
+                  Hello, {profile?.username}
                 </div>
 
                 <div
@@ -81,7 +87,7 @@ const Header = () => {
                           to="/profile"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
-                          Your Profile
+                          Profile
                         </Link>
                         <Link
                           to="/manage"
@@ -90,6 +96,7 @@ const Header = () => {
                           Manage Articles
                         </Link>
                         <Link
+                          onClick={logout}
                           to="/signout"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
@@ -169,6 +176,7 @@ const Header = () => {
                   Your Profile
                 </Link>
                 <Link
+                  onClick={logout}
                   to="/signout"
                   className="block py-2 text-base font-medium text-red-600"
                 >

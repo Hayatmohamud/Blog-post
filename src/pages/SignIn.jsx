@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
-// FIIRO GAAR AH: Halkaan ku dar import-ka signUp function-kaaga
-// import { signUp } from "../supabaseClient";
+import { signIn } from "../lib/auth";
+import { useAuth } from "../context/AuthContext";
+
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -13,20 +14,20 @@ const SignIn = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false); 
 
+   const authIfo = useAuth()
+   console.log(authIfo)
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      setIsLoading(false);
-      return;
-    }
 
     try {
-      // Hubi in signUp function-ka uu dhab ahaan u jiro
-      // await signUp(email, password, username);
+     
+       await signIn(email, password);
+
+       navigate('/')
 
       console.log("Diiwaangelintu waa guul!");
       setSuccess(true);
