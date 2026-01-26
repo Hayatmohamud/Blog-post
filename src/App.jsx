@@ -1,38 +1,30 @@
-import { Routes , Route} from "react-router"
-import Home from "./pages/Home"
-import Article from "./pages/Article";
-import Articles from "./pages/Articles";
+import { Routes, Route } from "react-router";
+import Home from "./pages/Home";
+import Article from "./pages/Article"; // Kan uun baa loo baahan yahay
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 import { AuthProvider } from "./context/AuthContext";
-import UnAuthenticatedRoute from "./components/UnAuthenticatedRoute"
+import UnAuthenticatedRoute from "./components/UnAuthenticatedRoute";
 import ArticleEditor from "./pages/ArticleEditor";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Profile from "./pages/Profile"
-import ManageArticles from "./pages/manageArticles"
+import Profile from "./pages/Profile";
+import ManageArticles from "./pages/manageArticles";
 import { Toaster } from "react-hot-toast";
 
-
-
-
 function App() {
-  
-
   return (
     <AuthProvider>
       <div>
-        {/* Header */}
         <Header />
         <main>
-          {/* public routes */}
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/article" element={<Article />} />
-            <Route path="article/:id" element={<Articles />} />
 
-            {/* unauthenticated routes (rediracte to home if logged in) */}
+            {/* Route-ka Article Page-ka */}
+            <Route path="/article/:id" element={<Article />} />
+
             <Route
               path="/signin"
               element={
@@ -50,8 +42,6 @@ function App() {
               }
             />
 
-            {/* protected route */}
-
             <Route
               path="/editor"
               element={
@@ -60,7 +50,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/editor/:id"
               element={
@@ -70,14 +59,13 @@ function App() {
               }
             />
             <Route
-              path="/manageArticles"
+              path="/manage-articles"
               element={
                 <ProtectedRoute>
-                  <manageArticles />
+                  <ManageArticles />
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/profile"
               element={
@@ -88,7 +76,6 @@ function App() {
             />
           </Routes>
         </main>
-        {/* footer */}
         <Footer />
       </div>
       <Toaster />
@@ -96,5 +83,4 @@ function App() {
   );
 }
 
-export default App
- 
+export default App;
